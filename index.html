@@ -5,10 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+</head>
+<body >
+
+   <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buscador de Mascota</title>
+ 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
 <body>
+  <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+     <a class="navbar-item" href="#">
+        <span class="icon is-large">
+          <i class="fas fa-paw fa-lg"></i>
+        </span>
+        <span class="is-size-3 has-text-weight-bold">
+          Buscador de Mascota
+        </span>
+      </a>
+    </div>
+
+      <div class="navbar-end">
+      <div class="navbar-item">
+        <a class="button is-light">
+          <span class="icon"><i class="fas fa-plus"></i></span>
+          <span>Añadir Mascota</span>
+        </a>
+      </div>
+    </div>
+    </div>
+  </nav>
+
+  <main class="section has-background-grey-lighter">
+    <section class="section">
+    <div class="box has-background-danger-light pt-5 pl-5 ">
+      <h1 class="title is-4">Filtrar por:</h1>
+
+      <div id="seccionFiltro" class="pb-5">
+        <form class="field is-grouped is-grouped-multiline">
+          
     
+          <div class="control">
+            <input class="input" type="text" placeholder="Nombre de la mascota...">
+          </div>
+
+        
+          <div class="control">
+            <div class="select">
+              <select>
+                <option value="">Todas</option>
+                <option value="perro">Perros</option>
+                <option value="gato">Gatos</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control">
+          <div class="select">
+            <select>
+              <option value="">Todas las Razas</option>
+              <option value="caniche">Caniche</option>
+              <option value="pitbull">Pitbull</option>
+              <option value="cocker">Cocker</option>
+              <option value="labrador">Labrador</option>
+              <option value="chihuahua">Chihuahua</option>
+              <option value="beagle">Beagle</option>
+              <option value="mestizo">mestizo</option>
+            </select>
+          </div>
+        </div>
+
+          <div class="control">
+              <div class="select">
+                <select id="selectEdad">
+                  <option value="">Todas las edades</option>
+                  <option value="0-2">- 2 años</option>
+                  <option value="3-5">2 a 5 años</option>
+                  <option value="6+">+ 5 años</option>
+                </select>
+              </div>
+         </div>
 
 
-    
+          
+          <div class="control">
+            <button class="button is-primary">
+              <span>Limpiar Filtro</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div>
+      <div id="seccionCards" class="columns is-multiline ">
+   
+      <div class="column is-6-mobile is-3-tablet">
+        <div class="card has-background-danger-light">
+          <h2 class="has-text-centered is-size-3 title pt-5 has-text-success">Max</h2>
+
+            <div class="card-image is-flex is-justify-content-center">
+                <figure class="image is-128x128  ">
+                   <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxAPDw8PDhAQEA8QFRUODw4PDg8PFQ8OFRIWFhURFxYYHSggGBolHRUVIjEhJSkrLi4uGB8zODMsNygtLisBCgoKDg0OGxAQGi0mICUtLS0tLS0vLS0tKy0tLS0tLS0tKy0tLS0tLSstLS0tLS0tLS0rLS0tLS0tLS0tLS0tLf/AABEIAKgBLAMBIgACEQEDEQH/xAAbAAACAwEBAQAAAAAAAAAAAAAAAQIEBQYDB//EADgQAAEDAwIEAwgBAgUFAAAAAAEAAhEDEiEEMQVBUWETInEGMkKBkaGx8NEUwVJisuHxFSMzRGP/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/xAAiEQEBAAMAAwACAgMAAAAAAAAAAQIDERIhMUFRImEEEzL/2gAMAwEAAhEDEQA/AOFTCQTWaxoQmgApJJoBNCaBhMJBSCkCYQnCBhMJBMKOBppKQCcApIDVr8P4U11rqriAfhA/J5KLZPq0xt+MlehpuABIIB2JBg+i6nw6TWubTZTcQJItE2/MSSpCpTcWhwAcByWN3SNZotcnCYXZ/wBLRqtIIEnF0CfWeqyB7Ouh0PEjAEHPzU47sb9RlpynxiJr0q0HsMOa4eoIXmtWXDQhNAJoTRIQhCICEIRJJoQgEk0kQE0kIlhhNCApVNNATCACaE0AE0BMIABNCaACkEgpBAJoU2MJ2CBAKTQvdmmMScKtUrBvy6GVXLORfHC1p6bDCJMbG0F325qxonOBDC8RPvbweR7bhZztQMRsd+UD9KlVtAupMfA6E1C5w/0rmyy7XVjjxtPLr4dAqCSyp1I+EnvH5+XnpuIyAHtBYBDZAnfefVVaVZrzDnQSIIcD5ScTPKM8uy8qrmhj/MKjWmZBtkDoI33+iyvv40n9t7h72lsgmZxt2MR1V/SuOMAgcuY57rleFVrXAbXHy3dCd9onI/hdCNRaXNAgkRDc5BmRmOZ23VF7F91Fj5a4Y3EgGPqua49wwUTeybXHIx5T0W/Qq2i0gku8wnl6Qc/JWeIaIV6D2SAYDmuGcjMR0WmrZ41ltw7HApqVRlpLTuDHMflJdziCEJogkJpIkIQhAIQhAIQhAIQhBhphATVlQmhMIBSSUkCUggJoBNCacDATCSkE4g2he8WjzbdMryZUtk81Q1uqJ6rLZlxtrx77XtRrg1pzHYQsynUc8EgHfeOS8gA4+YwBkp3OHlYwu5BpBKxrokaei1AAIlwMHIMEmduuy0NKWim8+LDnER/kZGZx+ysINtYHPBBeSLNwwjY9c5+iq1OKtptLHAkmYtJPqYUTG34m2T66XTv09R2HFpMAh2C4dR64xyUqWn8Jzmgg32tZcGutDsiZxO31K5vhlYVnY+c811jtJ47GgbttEzyxJ/KzynPS+NlnVWvSLTAdJc4PtzAMfCe4M/8AC09O97mX3CGiywzk5kyTk5mD2UNXSFOkA8gMnyl7SC0zsIJPNZ2n4oWXNY5rgcGWk+m/JU52L/HT8LrgmXPILdo2Lox337LoNKZbuCROSTM9fXb1+a4vgtQOuJzHmIyHRHIHf0C6jRta73HOtAkNktEdYiZ7Huq8KjxjhNPUAOvsqxhx2cO65biHDqlBxDhIHxDZdtUcHEGQPSDn5Lz4lSupyGioW4cG+R9vbv2XRq2WenPt1y+3AoVviGnFNwgyx4vY6IxtBHIgjIVVdbl+EhNCI6SE0kSEIQgSE0kQE0IUjECaSasqaYSCaBppBNAwmgICBhNATQCkEkwgjU2/KytW6Ty+oz2WwRIhYesoFrztnaVjsx/LfVl+HjTJnDs9Oy1NJV7nHwgNyfUgwsmnh0GANo2lXNNQe58tNjeg/ss7Gsq5XZVLXTBa7kDlvTZVB7Oki57zkW5puneeRye+y6jhFoicxtcSSe+V09PiFJrfMG+pTy8flLLk5fhfB6LaYguvmS7/ABncg9D/ALrqNFRo+QNESCSZ5EZK5L204iylTNSh5ahIaCGwBJ3PI9VyvC+M6gS6+o5zJd/5HAvEjG/VTjruXtXLZ4+n1/i/B2avT1KINoI8rgCS0jYj5r51qfZ9+ldJflrLbQ3yvqB4AAyZJBJJxtK7HgnHTUpMecGILbQc98rWtGo94N23AzA6g4P3hY3K4W41rJMpMo4vg7TRucRLnC0joDuMLseC1Q5u2QJkEA/deHEuCm1pZu3sTcOY7fvz9dCwsnEFozDwZEdBvjssr9a/YvhzA4cgTBBEQY3Vqq4B469Y/ZXNVOIiq65rpjAGQ7pkHdbmmq3RJ28rhGR3+Srb74nx9dc/7VsaH03MiHAktBwDO47H+VhLS9oHuNdzXYDPK0dt5+crNXo4S+Mednf5UIQhWUKEJoUhJJoRJIQhDoQhCDEUgkFIKyoCaE0AmEkwgaYQE0QaYSUgiQFIJBMIgwquu0fiZHvD8K2FJRZ36mWz45StRtJDuWwyvbRamCO34hbmp0DKhkyD2Xm3hTGg2jzGMntyWdwvG02RZ4XU8rjzAH8r3r1ySzOCf7/lZVKoaflOIwfv+/NV+JcThtrR5uRHwnquWY211eUk61Ndxak4Oo1LbJLQwtlpgEk7ZJIgc8rE0NHSjUAE1AyTLJ3bAxdvmFm8NY6pVLHZcTePQTP5+y12aM/1DRHRb/8AHpGvXNs7f27Xg2s08uZTj/tENA3wSJHf3gfr3no9BWAdjkSZ7SQPsvj+jfUGoqVBcKZqOBAEBzWmAJ9AF3/CeJe7ds/fqQTk/n6rDbj7Trvp2VPUiPWDHqF4ausykHVHQCYjAHmJAVChW8zi4wMiY6EBc/xXVvqVDkmmHGwD/DyPdZY9k6vZ28WtO1xe6Iy+4zdAkTaOy036vwg57gBGw7lZtABgGzNnHMk9wq/EuIeLgDyg4PZaatVzy7fim3bMMeT6q6msaj3PducryTQu/jg6Ek0IjpIhNCHSSTQiSQmkgSE0IhihMICYVkBNJMIGmEJoGE0k0DCYQE0DCaQTCBhSSCYQMIc6ASeSAqHGa0Mt5u/CjK8nU4zt4xNfqpe4id+RhSp6Vtt+8ifmdlWtiZB7EKzw6rAdM9dp/Sue3111YxPRA0tRTreGXBstqNaM2OESJ3IPJdZpamnq1hUpkuODZY8GR1JENHcrE0lRmMgmQQN8wcLZ0FWwEA5Lvt1+xWeWyyfHRqtx9RbPBwA0N5dvi69sqzo9E1joP1JP1U6eulks8x92I5jE+m31U9MS4y4i4HzRsQen7zXJMb9a3KfC4tewBoww5kfEe/8ACzWvI2K6t+j8ai5nxDIjORsuUc0gkHBGCO679FmWHOPP3y4596b6hdkmVFCa6OMOhCEIgITSlAIQhAklIpIEhCJQJCEIMYJhCasgJoTQCYSUggAmEJhAwmEgpBAJhATQMJhATCBhYPFat1QgEdFuk4XOV8ucSPRZbbyNtM7VavS90e8ScGOqtUmj3ADki7pIxjsUUIEAC4naJbA7kqw3UgAhxsJHlaeY6rmtrpkQdTDHAugiZtYcAiJnoNvotZ9SpaG0x/8AW8RBGZAEeizNO0UyHSD8NhkgjutjTVBHhm4Bxm8lrgB+81Wrxe0FYEFgbLxm620A7H0xmfktbStaGgjZ3mJJAIIwYPMLDrZdBJDQA0OiC84yVsNdIpUjBdAmJjaB88KtTHQ8Mqi4A88AwYHIFYHtJpPDruPJ/mHrzWxw9pZLRMtEkEz+9Vd4toWV6TS/Dhs7oU05+GXtXdh54+nCJq3xDhz6BAdkHZw5qmvRllnY8+yy8poSTRBoSQgaSEIBJNKEAknCIQRRKcJ2oMdMJwnCsgkwE4ThAkwnCYCBJpwpBqCITCkGphqBJqQanagimFMNTDUFbWOim4zGFzNRxwZNvUHYrf4w5ttp3WNV0gbT2LiTkdAubbffHTpn8erNBji28mOYaIm0fyvVwYRdUFzpBHp0A/svOnpzTyTIEn+Puo0NS1wDnAyJOfz6rF0LOKuWthrcbzJ6dFuM0jPBd4Za0Ee8TJ9Ox2WDQLpLGtmDfv239VbNQD3pnZoAA+/ROnGuwBway7z4DGgQOp9VZNa1/nFpdkOJxExbHXG6xOHUze0vwW5a0HIE79xhX6wc8vDyHA+7aDIMjE7dSq2Wp7I6Dh2tBIN0gSASCSO3VdE+oHU7Qcxvvlcxo9FSIF1zXjvuepW3oG+YAk3bRtPcLC+mv14UaoqNLarbgMdcrJ4rwqwX08s5jorL3mnqHUjgAySOm4K0NM5j2VGn3TyOYWmvZdd++mezXM5/bkbU7Ve1WlLHEcuR6heNi9GWWdjzrOXleFiLFYsTsUoVrE7FYsRYgr+Gjw1ZtRagr+Gjw1YtTtQV/DR4asWp2oOdDU7VKEKyCtTtTQpChShCJQOEwEpTuUBwmAo3J3oJgKQC8vET8RB7AJPNoJiY5DmoCqFU1eo8zWzAPNVyy5OrY4+V4p1dSx1SXQZ2GN+ikz33HkMWwJkO97HLBRotFSc+IuyXEk22tEZPRe7acEjLrueIIOB+91x5Xvt24+vR0i17CSMAj6qlxCi0Em3cCRMAFaVOhFzRzySPKJ3j96qGpZdgtgAAQMnA+6rxbrG0Nd0gbNBiJ6cl76jVeYAb/GDvA2g9FQ4k3w3FgOMOx0OxWbW1JM5Mnn2C0mHWdz413V3PrMcAbWnF07DJXT6PXTTPhsDmncxim48zI/BlcnQoVHhvmFxE/I9e66Hg7/BaWVGgj3fLafMds8lGScW5T1TXeG24lwFp33AgYjOwH0W/QkFpkzzyDnl6LmtOxjctMuBgNcBcB3+i6ClqS+0RtgkGCO0CMLlzjoxVPaOm4VBV2DgBjJMYK9uH1Q0Nn3XY2gz3Xl7VNup0n24acuJtjoPqsCrxgU3NEzI908irTHy9o8uenV1ajKzIJgsMAgKrU0DgJEOHZZX/AFEBgLjvs0QBC09PxOGjJg4GdlfHblr9fhnlqxz9/lXLUQtWo1j6ZjLgLpWbC7deyZzrj2a7heIQnapQiFozRhFqkmoEIRCmiEEIThSRCDmpSlRlRJVkPS5K5eZKiSo6nj1vSvXiSokp049/EUTVVckqJlQcWDWUTqFWIK83NKJWjqlE6xUnMK8XtKjpxoHXJ33wYm3PYHlPZZRKs6WvgtDrTuTjPKFnst411ydbVOakAMNopkhgloLxIAMcpG/NLQPdF5bBDg20gluGkz2jGO6OGVX+A8tNpEMDurWiB+9l7UC97GDADyXiCB7jYM46rGxvHtQYTEjIEx2ySVPUMmAIuEzj4eXz3QatjA5xAqXAMJMcuXbAWP7Q60wWUD5jEuHIRkD5ypwwtRnnI5fjGuvrPIny+UE9lRbUkr2qaN43C8vDI5Lp5xzdtdDw6ZDjgHLYO0eq3qNU2Oc5xw2QN3Ok+X02+i43S6syGuwMfTot1mqGGAh1xaWmcscARJ+pwufLHldON7HTuoGGvpuAe0xWycvndv2+62NC9wpg1pBccEciN8rnKDHtqgh/xOYRnORn7lbmmvNNwMOcw2jOTBgunqsMsW0qz7W6ltLRV6htcHMhpxlxIA+ex9ZXy3Q8QvdNQSRt2X1PiLWVtOGPaJMOj+655/s7QJm2D1GFvp19wYbdnM2bTrU6lFwtgM+OVc4O9zhYTHOTzHYqzT4DTa1zQ51rtxMr0pcEYI89Qx/mS6LUz/Ixjf4bqwDECwjzA5g7EA9F41IkxtOPRVqGnDMCfmZXutsNcxc+zb5hCE1oyJEJoQKE4QhAQhCaDk4ShCFIUJFqEIFalYkhAWJeGhCB+GjwkIU8D8BL+lBQhBF3DWleLuBNPxEIQo5E9r10/ByxrmitUtduMFXKOhcImo8wIBIbt02QhR4T9Hnl+3q/RNdFwuI2Lsx6dEf0LeiEK3OI+onhjTyXm7gdM7hCFA8X+y9J3b0UafsmwGW1HNP1QhRyJ8qv0OCOb/7FT1hsj7LS0uks+N5+cT9EIUeGP6W/2ZftaTQhTxW0wmkhShJNJCBoQhQBNCFIEIQoAmhCD//Z" alt="Caniche">
+                </figure>
+            </div>
+            <div class="tags are-small is-centered" >
+              <span class="tag is-warning">2 años</span>
+              <span class="tag is-success">Caniche</span>
+              <span class="tag is-link">Perro</span>
+            </div>
+
+         
+          <footer class="card-footer">
+            <a href="#" class="card-footer-item button is-small is-info">Editar</a>
+            <a href="#" class="card-footer-item button is-small is-danger">Eliminar</a>
+          </footer>
+
+        </div>
+        
+  </div>
+  
+</div>
+    </div>
+</section>
+  </main>
+
+  
+    <footer>
+
+    </footer>
+
+
+
+
 </body>
 </html>
