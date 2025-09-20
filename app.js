@@ -57,3 +57,22 @@ function mostrarUsuariosEnDOM(datos) {
     seccionCards.appendChild(userCard);
   });
 }
+
+window.eliminarUsuario = async function (id) {
+  if (confirm(`¿Estás seguro de eliminar el estudiante con ID ${id}?`)) {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
+      alert("Estudiante eliminado correctamente");
+      obtenerUsuarios();
+    } catch (error) {
+      alert(`Error al eliminar estudiante: ${error.message}`);
+      console.error("Error al eliminar estudiante:", error);
+    }
+  }
+  
+}
+
+
+obtenerUsuarios();
+
