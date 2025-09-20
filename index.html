@@ -1,124 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-</head>
-<body >
-
-   <!DOCTYPE html>
-<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buscador de Mascota</title>
- 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  <title>Document</title>
 </head>
-<body>
-  <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-     <a class="navbar-item" href="#">
-        <span class="icon is-large">
-          <i class="fas fa-paw fa-lg"></i>
-        </span>
-        <span class="is-size-3 has-text-weight-bold">
-          Buscador Perruno
-        </span>
-      </a>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
 
-      <div class="navbar-end">
-      <div class="navbar-item">
-        <a class="button is-light">
-          <span class="icon"><i class="fas fa-plus"></i></span>
-          <span>Añadir Mascota</span>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+</head>
+
+<body>
+
+  <!DOCTYPE html>
+  <html lang="es">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Mascota</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+  </head>
+
+  <body>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="#">
+          <span class="icon is-large">
+            <i class="fas fa-paw fa-lg"></i>
+          </span>
+          <span class="is-size-3 has-text-weight-bold">
+            Buscador Perruno
+          </span>
         </a>
       </div>
-    </div>
-    </div>
-  </nav>
 
-  <main class="section has-background-grey-lighter">
-    <section class="section">
-    <div class="box has-background-danger-light pt-5 pl-5 ">
-      <h1 class="title is-4">Filtrar por:</h1>
+      <div class="navbar-end">
+        <div id="botonAñadir" class="navbar-item">
+          <a class="button is-light">
+            <span>Añadir Mascota</span>
+          </a>
+        </div>
+      </div>
+      </div>
+    </nav>
 
-      <div id="seccionFiltro" class="pb-5">
-        <form class="field is-grouped is-grouped-multiline">
-          
-    
-          <div class="control">
-            <input class="input" type="text" placeholder="Nombre de la mascota...">
-          </div>
+    <main class="section has-background-grey-lighter">
+      <section class="section">
 
+        <div id="seccionAñadirMascota" class="box has-background-danger-light pt-5 pl-5 is-hidden">
+          <h1 id="tituloFormulario" class="title is-4">Añadir mascota:</h1>
 
-          <div class="control">
-          <div class="select">
-            <select>
-              <option value="">Todas las Razas</option>
-              <option value="caniche">Caniche</option>
-              <option value="pitbull">Pitbull</option>
-              <option value="cocker">Cocker</option>
-              <option value="labrador">Labrador</option>
-              <option value="chihuahua">Chihuahua</option>
-              <option value="beagle">Beagle</option>
-              <option value="mestizo">Mestizo</option>
-            </select>
+          <div id="seccionAñdirMascota" class="pb-5">
+            <form id="formMascota" class="field">
+
+              <div class="control mb-3">
+                <label for="nombreMascota">Nombre de la mascota:</label>
+                <input id="nombreMascota" class="input" type="text" placeholder="Ej: Max, Luna..." required>
+              </div>
+
+              <div class="control mb-3">
+                <label for="razaMascota">Raza:</label>
+                <input id="razaMascota" class="input" type="text" placeholder="Ej: Labrador, Mestizo..." required>
+              </div>
+
+              <div class="control mb-3">
+                <label for="sexoMascota">Sexo:</label>
+                <div class="select is-fullwidth">
+                  <select id="sexoMascota" required>
+                    <option value="" disabled selected>Seleccione el sexo...</option>
+                    <option value="Hembra">Hembra</option>
+                    <option value="Macho">Macho</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="control mb-3">
+                <label for="imagenMascota">Ingrese link de la imagen:</label>
+                <input id="imagenMascota" class="input" type="url" placeholder="https://ejemplo.com/imagen.jpg">
+              </div>
+
+              <div class="control mt-4">
+                <button id="btnSubmit" type="submit" class="button is-primary is-fullwidth">
+                  Añadir Mascota
+                </button>
+              </div>
+            </form>
+
           </div>
         </div>
+        <div>
 
-          <div class="control">
-              <div class="select">
-                <select id="selectEdad">
-                  <option value="todos">Todos</option>
-                  <option value="hembra"> Hembra</option>
-                  <option value="macho">Macho</option>
-                  
-                </select>
+
+          <section id="seccionFiltrarMascota" class="section">
+            <div class="box has-background-danger-light pt-5 pl-5 ">
+              <h1 class="title is-4">Filtrar por:</h1>
+
+              <div id="seccionFiltro" class="pb-5">
+                <form class="field is-grouped is-grouped-multiline">
+
+
+                  <div class="control">
+                    <input class="input" type="text" placeholder="Nombre de la mascota...">
+                  </div>
+
+
+                  <div class="control">
+                    <div class="select">
+                      <select id="selectRaza">
+                        <option value="">Todas las Razas</option>
+                        <option value="caniche">Caniche</option>
+                        <option value="pitbull">Pitbull</option>
+                        <option value="cocker">Cocker</option>
+                        <option value="labrador">Labrador</option>
+                        <option value="chihuahua">Chihuahua</option>
+                        <option value="beagle">Beagle</option>
+                        <option value="mestizo">Mestizo</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="control">
+                    <div class="select">
+                      <select id="selectSexo">
+                        <option value="todos">Todos</option>
+                        <option value="hembra"> Hembra</option>
+                        <option value="macho">Macho</option>
+
+                      </select>
+                    </div>
+                  </div>
+
+
+
+                  <div class="control">
+                    <button class="button is-primary">
+                      <span>Limpiar Filtro</span>
+                    </button>
+                  </div>
+                </form>
               </div>
-         </div>
+            </div>
+            <div>
+              <div id="seccionCards" class="columns is-multiline ">
 
 
-          
-          <div class="control">
-            <button class="button is-primary">
-              <span>Limpiar Filtro</span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div>
-      <div id="seccionCards" class="columns is-multiline ">
-   
-      
-  
-</div>
-    </div>
-</section>
-  </main>
 
-  
+              </div>
+            </div>
+          </section>
+    </main>
+
+
     <footer>
 
     </footer>
 
 
 
-<script src="app.js"></script>
-</body>
-</html>
+    <script src="app.js"></script>
+  </body>
+
+  </html>

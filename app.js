@@ -1,12 +1,18 @@
 const API_URL = " https://68c99a25ceef5a150f657abc.mockapi.io/Mascotas";
+let todasLasMascotas = [];
 
+const filtroNombre = document.querySelector("#seccionFiltro input"); // input del nombre
+const filtroRaza = document.querySelector("#selectRaza");
+const filtroSexo = document.querySelector("#selectSexo");
 
 async function obtenerUsuarios() {
   try {
     const response = await fetch(`${API_URL}`);
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
     const datos = await response.json();
+     todasLasMascotas = datos; 
     mostrarUsuariosEnDOM(datos);
+    actualizarSelectRazas();
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
   }
@@ -40,8 +46,8 @@ function mostrarUsuariosEnDOM(datos) {
 
          
           <footer class="card-footer">
-            <a href="#" class="button card-footer-item button is-small is-info">Editar</a>
-            <a href="#" class="button card-footer-item button is-small is-danger">Eliminar</a>
+            <a href="#" onclick="editarUsuario('${id}')" class="button card-footer-item button is-small is-info">Editar</a>
+            <a href="#" onclick="eliminarUsuario('${id}')" class="button card-footer-item button is-small is-danger">Eliminar</a>
           </footer>
 
         
@@ -51,20 +57,3 @@ function mostrarUsuariosEnDOM(datos) {
     seccionCards.appendChild(userCard);
   });
 }
-
-obtenerUsuarios();
-
-// <figure class="image is-64x64 mr-4">
-//         <img src="${
-//           avatar || "https://via.placeholder.com/150"
-//         }" onerror="this.src='https://via.placeholder.com/150'">
-//       </figure>
-//       <div class="mr-auto">
-//         <h3 class="title is-5 mb-1">${name}</h3>
-//         <p>${Sexo} • ${raza}</p>
-//         <small>ID: ${id}</small>
-//       </div>
-//       <div class="buttons">
-//         <button class="button is-warning" onclick="editUser('${id}')">Editar</button>
-//         <button class="button is-danger" onclick="deletea('${id}')">Eliminar</button>
-//       </div>
