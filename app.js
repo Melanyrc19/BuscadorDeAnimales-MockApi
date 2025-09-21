@@ -1,5 +1,4 @@
 const API_URL = "https://68c99a25ceef5a150f657abc.mockapi.io/Mascotas";
-let todasLasMascotas = [];
 
 const filtroNombre = document.querySelector("#filtroNombre");
 const filtroRaza = document.querySelector("#selectRaza");
@@ -36,6 +35,7 @@ async function obtenerMascotas(params = {}) {
    
 
     mostrarMascotasEnDOM(datos);
+     actualizarSelectRazas(datos);
     
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
@@ -55,6 +55,7 @@ function mostrarMascotasEnDOM(datos) {
 
     const userCard = document.createElement("div");
     userCard.className = "column is-4-table is-6-mobile mb-3";
+    const colorSexo = colorPorSexo(Sexo);
     userCard.innerHTML = `<div class="card has-background-light has-shadow">
          <div class="card-content has-text-centered">
           <h2 class="title has-text-success mb-3">${name || "Max"}</h2>
@@ -65,7 +66,7 @@ function mostrarMascotasEnDOM(datos) {
                 </figure>
             </div>
             <div class="tags is-centered mb-3">
-                <span class="tag is-warning is-light">${Sexo || "Desconocido"}</span>
+                <span class="tag ${colorSexo} is-light">${Sexo || "Desconocido"}</span>
                 <span class="tag is-success is-light">${raza || "Desconocida"}</span>
             </div>
 
@@ -97,32 +98,6 @@ window.eliminarMascotas= async function (id) {
   }
 }
 
-
-formMascota.addEventListener("submit", async (e) => {
-  e.preventDefault(); 
-
- const accion = btnSubmit.dataset.accion;  
-
-  try {
-    if (accion === "edit") {
-      const id = btnSubmit.dataset.id;
-      await editarMascotaApi(id);
-  } else {
-       await añadirMascotaApi();
-  }
-
-    obtenerMascotas();
-
-    formMascota.reset();
-
-    seccionAñadirMascotas.classList.add("is-hidden");
-    
-
-  } catch (error) {
-    console.error("Error al guardar:", error);
-    alert("No se pudo guardar la mascota");
-  }
-});
 
 window.editarMasc = async function(id){
   try {
@@ -205,7 +180,6 @@ function aplicarFiltros() {
     });
 }
 
-// Escuchar cambios en los filtros
 filtroNombre.addEventListener("input", aplicarFiltros);
 filtroRaza.addEventListener("change", aplicarFiltros);
 filtroSexo.addEventListener("change", aplicarFiltros);
@@ -219,68 +193,55 @@ botonLimpiar.addEventListener("click", (e)=>{
   aplicarFiltros();
 })
 
+function actualizarSelectRazas(datos) {
+  
+  const razasUnicas = [...new Set(datos.map(m => m.raza).filter(r => r))];
 
-aplicarFiltros();
-
-
-
-// function aplicarFiltros() {
-//   let filtradas = todasLasMascotas;
-
-// const nombre = filtroNombre.value.toLowerCase();
-// if (nombre){
-//   filtradas = filtradas.filter(n=>n.name.toLowerCase().startsWith(nombre));
-// }
-
-//   const sexo = filtroSexo.value.toLowerCase();
-//   if (sexo && sexo !== "todos") {
-//     filtradas = filtradas.filter(m => m.Sexo?.toLowerCase() === sexo);
-//   }
+  filtroRaza.innerHTML = "";
 
 
-// const raza = filtroRaza.value.toLowerCase();
-// if  (raza){
-//   filtradas = filtradas.filter(r=>r.raza?.toLowerCase()===raza)
-// }
-// mostrarMascotasEnDOM(filtradas);
-// actualizarSelectRazas();
-// }
+  const opcionTodas = document.createElement("option");
+  opcionTodas.value = "";
+  opcionTodas.textContent = "Todos";
+  filtroRaza.appendChild(opcionTodas);
 
-// botonLimpiar.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   filtroNombre.value = "";
-//   filtroRaza.value = "";
-//   filtroSexo.value = "todos";
-//   mostrarMascotasEnDOM(todasLasMascotas);
-//   actualizarSelectRazas();
-// });
-
-// function actualizarSelectRazas() {
-//   const selectRaza = filtroRaza;
-
-//   const opcionTodas = selectRaza.querySelector('option[value=""]');
-//   selectRaza.innerHTML = "";
-//   selectRaza.appendChild(opcionTodas);
+  razasUnicas.forEach(raza => {
+    const option = document.createElement("option");
+    option.value = raza.toLowerCase(); 
+    option.textContent = raza;
+    filtroRaza.appendChild(option);
+  });
+}
+function colorPorSexo(sexo) {
+  if (!sexo) return "is-light";
+  sexo = sexo.toLowerCase();
+  if (sexo === "male" || sexo === "macho") return "is-danger";   // verde
+  if (sexo === "female" || sexo === "hembra") return "is-info";   // azul
+  return "is-light"; 
+}
 
 
-//   const razasUnicas = [...new Set(todasLasMascotas.map(m => m.raza).filter(r => r))];
+formMascota.addEventListener("submit", async (e) => {
+  e.preventDefault(); 
 
+ const accion = btnSubmit.dataset.accion;  
 
-//   razasUnicas.forEach(raza => {
-//     const option = document.createElement("option");
-//     option.value = raza.toLowerCase();
-//     option.textContent = raza;
-//     selectRaza.appendChild(option);
-//   });
-// }
+  try {
+    if (accion === "edit") {
+      const id = btnSubmit.dataset.id;
+      await editarMascotaApi(id);
+  } else {
+       await añadirMascotaApi();
+  }
+    obtenerMascotas();
+    formMascota.reset();
+    seccionAñadirMascotas.classList.add("is-hidden");
 
-
-
-
-// filtroNombre.addEventListener("input", aplicarFiltros);
-// filtroRaza.addEventListener("change", aplicarFiltros);
-// filtroSexo.addEventListener("change", aplicarFiltros);
-
+  } catch (error) {
+    console.error("Error al guardar:", error);
+    alert("No se pudo guardar la mascota");
+  }
+});
 
 botonAñadirNav.addEventListener("click", ()=>{
 seccionAñadirMascotas.classList.toggle("is-hidden")
@@ -289,5 +250,5 @@ seccionAñadirMascotas.classList.toggle("is-hidden")
  btnSubmit.dataset.accion= "add";
 })
 
-
 obtenerMascotas();
+aplicarFiltros();
