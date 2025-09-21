@@ -5,13 +5,13 @@ const filtroNombre = document.querySelector("#filtroNombre");
 const filtroRaza = document.querySelector("#selectRaza");
 const filtroSexo = document.querySelector("#selectSexo");
 
+
 let botonAñadirNav = document.querySelector("#botonAñadir")
 let botonParaAñadir = document.querySelector("#botonParaAñadir")
 let botonLimpiar = document.querySelector("#botonLimpiar")
 let seccionAñadirMascotas = document.querySelector("#seccionAñadirMascota")
 
-let idMascotaEditando = null;
-
+const formMascota = document.querySelector("#formMascota");
 const inputNombre = document.querySelector("#nombreMascota");
 const inputRaza = document.querySelector("#razaMascota");
 const inputSexo = document.querySelector("#sexoMascota");
@@ -19,24 +19,32 @@ const inputAvatar = document.querySelector("#imagenMascota");
 
 let btnSubmit = document.querySelector("#btnSubmit");
 let tituloFormulario = document.querySelector("#tituloFormulario")
+const seccionCards = document.querySelector("#seccionCards")
 
 
 
-async function obtenerMascotas() {
+async function obtenerMascotas(params = {}) {
   try {
-    const response = await fetch(`${API_URL}`);
+    const url = new URL(API_URL);
+    Object.entries(params).forEach(([key, value])=> {
+       if (value) url.searchParams.append(key, value);
+    });
+
+    const response = await fetch(url);
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
     const datos = await response.json();
-     todasLasMascotas = datos; 
+   
+
     mostrarMascotasEnDOM(datos);
-    actualizarSelectRazas();
+    
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
   }
 }
-const seccionCards = document.querySelector("#seccionCards")
+
 
 function mostrarMascotasEnDOM(datos) {
+
   if (datos.length === 0) {
     seccionCards.innerHTML = "<p>No hay datos para mostrar.</p>";
     return;
@@ -90,24 +98,10 @@ window.eliminarMascotas= async function (id) {
 }
 
 
-obtenerMascotas();
-
-botonAñadirNav.addEventListener("click", ()=>{
-seccionAñadirMascotas.classList.toggle("is-hidden")
- tituloFormulario.textContent = "Añadir Mascota";
- btnSubmit.textContent = "Añadir";
- btnSubmit.dataset.accion= "add";
-})
-
-
-const formMascota = document.querySelector("#formMascota");
-
-
 formMascota.addEventListener("submit", async (e) => {
   e.preventDefault(); 
 
  const accion = btnSubmit.dataset.accion;  
-
 
   try {
     if (accion === "edit") {
@@ -134,10 +128,12 @@ window.editarMasc = async function(id){
   try {
     const response = await fetch(`${API_URL}/${id}`);
     const mascota = await response.json();
+    
     inputNombre.value = mascota.name;
     inputRaza.value = mascota.raza;
     inputSexo.value = mascota.Sexo;
     inputAvatar.value = mascota.avatar;
+
     seccionAñadirMascotas.classList.remove("is-hidden");
     tituloFormulario.textContent = "Editar mascota";
     btnSubmit.textContent = "Guardar cambios";
@@ -163,7 +159,7 @@ window.editarMasc = async function(id){
     });
     if (!response.ok) throw new Error("Error al editar mascota");
     
-    alert("Mascota editada correctamente ✅");
+    alert("Mascota editada correctamente");
     
 
   } catch (error) {
@@ -174,10 +170,10 @@ window.editarMasc = async function(id){
 async function  añadirMascotaApi() {
   try{
      const nuevaMascota = {
-      name: document.querySelector("#nombreMascota").value,
-      raza: document.querySelector("#razaMascota").value,
-      Sexo: document.querySelector("#sexoMascota").value,
-      avatar: document.querySelector("#imagenMascota").value,
+      name: inputNombre.value,
+      raza: inputRaza.value,
+      Sexo: inputSexo.value,
+      avatar: inputAvatar.value,
     };
       const response = await fetch(API_URL, {
       method: "POST",
@@ -186,7 +182,7 @@ async function  añadirMascotaApi() {
     });
      if (!response.ok) throw new Error("Error al añadir mascota");
 
-    alert("Mascota añadida correctamente 🎉");
+    alert("Mascota añadida correctamente");
 
   } catch (error) {
     console.error(error);
@@ -195,49 +191,103 @@ async function  añadirMascotaApi() {
 
 }
 
+// _________________________________________________
+
+
 function aplicarFiltros() {
-  let filtradas = todasLasMascotas;
+    const params = {};
+    if (filtroNombre.value) params.name = filtroNombre.value;
+    if (filtroRaza.value) params.raza = filtroRaza.value;
+    if (filtroSexo.value && filtroSexo.value !== "todos") params.Sexo = filtroSexo.value;
 
-const nombre = filtroNombre.value.toLowerCase();
-if (nombre){
-  filtradas = filtradas.filter(n=>n.name.toLowerCase().startsWith(nombre));
+    obtenerMascotas(params).then(datos => {
+        mostrarMascotasEnDOM(datos); 
+    });
 }
 
-  const sexo = filtroSexo.value.toLowerCase();
-  if (sexo && sexo !== "todos") {
-    filtradas = filtradas.filter(m => m.Sexo?.toLowerCase() === sexo);
-  }
-
-
-const raza = filtroRaza.value.toLowerCase();
-if  (raza){
-  filtradas = filtradas.filter(r=>r.raza?.toLowerCase()===raza)
-}
-
-mostrarMascotasEnDOM(filtradas);
-actualizarSelectRazas();
-
-}
-
-
+// Escuchar cambios en los filtros
 filtroNombre.addEventListener("input", aplicarFiltros);
 filtroRaza.addEventListener("change", aplicarFiltros);
 filtroSexo.addEventListener("change", aplicarFiltros);
-
-
-
-botonLimpiar.addEventListener("click", (e) => {
+botonLimpiar.addEventListener("click", (e)=>{
   e.preventDefault();
-  filtroNombre.value = "";
-  filtroRaza.value = "";
-  filtroSexo.value = "todos";
-  mostrarMascotasEnDOM(todasLasMascotas);
-  actualizarSelectRazas();
-});
+
+  filtroNombre.value="";
+  filtroRaza.value="";
+  filtroSexo.value="";
+
+  aplicarFiltros();
+})
+
+
+aplicarFiltros();
+
+
+
+// function aplicarFiltros() {
+//   let filtradas = todasLasMascotas;
+
+// const nombre = filtroNombre.value.toLowerCase();
+// if (nombre){
+//   filtradas = filtradas.filter(n=>n.name.toLowerCase().startsWith(nombre));
+// }
+
+//   const sexo = filtroSexo.value.toLowerCase();
+//   if (sexo && sexo !== "todos") {
+//     filtradas = filtradas.filter(m => m.Sexo?.toLowerCase() === sexo);
+//   }
+
+
+// const raza = filtroRaza.value.toLowerCase();
+// if  (raza){
+//   filtradas = filtradas.filter(r=>r.raza?.toLowerCase()===raza)
+// }
+// mostrarMascotasEnDOM(filtradas);
+// actualizarSelectRazas();
+// }
+
+// botonLimpiar.addEventListener("click", (e) => {
+//   e.preventDefault();
+//   filtroNombre.value = "";
+//   filtroRaza.value = "";
+//   filtroSexo.value = "todos";
+//   mostrarMascotasEnDOM(todasLasMascotas);
+//   actualizarSelectRazas();
+// });
+
+// function actualizarSelectRazas() {
+//   const selectRaza = filtroRaza;
+
+//   const opcionTodas = selectRaza.querySelector('option[value=""]');
+//   selectRaza.innerHTML = "";
+//   selectRaza.appendChild(opcionTodas);
+
+
+//   const razasUnicas = [...new Set(todasLasMascotas.map(m => m.raza).filter(r => r))];
+
+
+//   razasUnicas.forEach(raza => {
+//     const option = document.createElement("option");
+//     option.value = raza.toLowerCase();
+//     option.textContent = raza;
+//     selectRaza.appendChild(option);
+//   });
+// }
 
 
 
 
-function actualizarSelectRazas() {
-  
-}
+// filtroNombre.addEventListener("input", aplicarFiltros);
+// filtroRaza.addEventListener("change", aplicarFiltros);
+// filtroSexo.addEventListener("change", aplicarFiltros);
+
+
+botonAñadirNav.addEventListener("click", ()=>{
+seccionAñadirMascotas.classList.toggle("is-hidden")
+ tituloFormulario.textContent = "Añadir Mascota";
+ btnSubmit.textContent = "Añadir";
+ btnSubmit.dataset.accion= "add";
+})
+
+
+obtenerMascotas();
