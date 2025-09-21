@@ -1,11 +1,13 @@
-const API_URL = " https://68c99a25ceef5a150f657abc.mockapi.io/Mascotas";
+const API_URL = "https://68c99a25ceef5a150f657abc.mockapi.io/Mascotas";
 let todasLasMascotas = [];
 
-const filtroNombre = document.querySelector("#seccionFiltro input"); // input del nombre
+const filtroNombre = document.querySelector("#filtroNombre");
 const filtroRaza = document.querySelector("#selectRaza");
 const filtroSexo = document.querySelector("#selectSexo");
+
 let botonAñadirNav = document.querySelector("#botonAñadir")
 let botonParaAñadir = document.querySelector("#botonParaAñadir")
+let botonLimpiar = document.querySelector("#botonLimpiar")
 let seccionAñadirMascotas = document.querySelector("#seccionAñadirMascota")
 
 let idMascotaEditando = null;
@@ -15,20 +17,26 @@ const inputRaza = document.querySelector("#razaMascota");
 const inputSexo = document.querySelector("#sexoMascota");
 const inputAvatar = document.querySelector("#imagenMascota");
 
-async function obtenerUsuarios() {
+let btnSubmit = document.querySelector("#btnSubmit");
+let tituloFormulario = document.querySelector("#tituloFormulario")
+
+
+
+async function obtenerMascotas() {
   try {
     const response = await fetch(`${API_URL}`);
     if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
     const datos = await response.json();
      todasLasMascotas = datos; 
-    mostrarUsuariosEnDOM(datos);
+    mostrarMascotasEnDOM(datos);
+    actualizarSelectRazas();
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
   }
 }
 const seccionCards = document.querySelector("#seccionCards")
 
-function mostrarUsuariosEnDOM(datos) {
+function mostrarMascotasEnDOM(datos) {
   if (datos.length === 0) {
     seccionCards.innerHTML = "<p>No hay datos para mostrar.</p>";
     return;
@@ -56,7 +64,7 @@ function mostrarUsuariosEnDOM(datos) {
          
           <footer class="card-footer">
             <a href="#" id="botonParaEditar" onclick="editarMasc('${id}')" class="button card-footer-item button is-small is-info">Editar</a>
-            <a href="#" onclick="eliminarUsuario('${id}')" class="button card-footer-item button is-small is-danger">Eliminar</a>
+            <a href="#" onclick="eliminarMascotas('${id}')" class="button card-footer-item button is-small is-danger">Eliminar</a>
           </footer>
 
         
@@ -67,32 +75,31 @@ function mostrarUsuariosEnDOM(datos) {
   });
 }
 
-window.eliminarUsuario = async function (id) {
+window.eliminarMascotas= async function (id) {
   if (confirm(`¿Estás seguro de eliminar el estudiante con ID ${id}?`)) {
     try {
       const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
       if (!response.ok) throw new Error(`Error HTTP: ${response.status}`);
       alert("Estudiante eliminado correctamente");
-      obtenerUsuarios();
+      obtenerMascotas();
     } catch (error) {
       alert(`Error al eliminar estudiante: ${error.message}`);
       console.error("Error al eliminar estudiante:", error);
     }
   }
-  
 }
 
 
-obtenerUsuarios();
-
-
-
-
+obtenerMascotas();
 
 botonAñadirNav.addEventListener("click", ()=>{
 seccionAñadirMascotas.classList.toggle("is-hidden")
- document.querySelector("#tituloFormulario").textContent = "Añadir Mascota";
+ tituloFormulario.textContent = "Añadir Mascota";
+ btnSubmit.textContent = "Añadir";
+ btnSubmit.dataset.accion= "add";
 })
+
+
 const formMascota = document.querySelector("#formMascota");
 
 
@@ -110,14 +117,12 @@ formMascota.addEventListener("submit", async (e) => {
        await añadirMascotaApi();
   }
 
-    obtenerUsuarios();
+    obtenerMascotas();
 
     formMascota.reset();
 
     seccionAñadirMascotas.classList.add("is-hidden");
-     document.querySelector("#btnSubmit").textContent = "Añadir";
-     tituloFormulario.textContent = "Añadir Mascota";
-   
+    
 
   } catch (error) {
     console.error("Error al guardar:", error);
@@ -188,7 +193,51 @@ async function  añadirMascotaApi() {
     alert("No se pudo añadir la mascota");
   }
 
+}
 
-  
+function aplicarFiltros() {
+  let filtradas = todasLasMascotas;
+
+const nombre = filtroNombre.value.toLowerCase();
+if (nombre){
+  filtradas = filtradas.filter(n=>n.name.toLowerCase().startsWith(nombre));
+}
+
+  const sexo = filtroSexo.value.toLowerCase();
+  if (sexo && sexo !== "todos") {
+    filtradas = filtradas.filter(m => m.Sexo?.toLowerCase() === sexo);
+  }
+
+
+const raza = filtroRaza.value.toLowerCase();
+if  (raza){
+  filtradas = filtradas.filter(r=>r.raza?.toLowerCase()===raza)
+}
+
+mostrarMascotasEnDOM(filtradas);
+actualizarSelectRazas();
+
+}
+
+
+filtroNombre.addEventListener("input", aplicarFiltros);
+filtroRaza.addEventListener("change", aplicarFiltros);
+filtroSexo.addEventListener("change", aplicarFiltros);
+
+
+
+botonLimpiar.addEventListener("click", (e) => {
+  e.preventDefault();
+  filtroNombre.value = "";
+  filtroRaza.value = "";
+  filtroSexo.value = "todos";
+  mostrarMascotasEnDOM(todasLasMascotas);
+  actualizarSelectRazas();
+});
+
+
+
+
+function actualizarSelectRazas() {
   
 }
