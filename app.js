@@ -53,11 +53,11 @@ function mostrarMascotasEnDOM(datos) {
   datos.forEach(({ raza, name, Sexo, avatar, id }) => {
    
 
-    const userCard = document.createElement("div");
-    userCard.className = "column is-4-table is-6-mobile mb-3";
-    userCard.style.minWidth = "250px"; 
+    const usuarioCard = document.createElement("div");
+    usuarioCard.className = "column is-4-table is-6-mobile mb-3";
+    usuarioCard.style.minWidth = "250px"; 
     const colorSexo = colorPorSexo(Sexo);
-    userCard.innerHTML = `<div class="card has-background-light has-shadow">
+    usuarioCard.innerHTML = `<div class="card has-background-light has-shadow">
          <div class="card-content has-text-centered">
           <h2 class="title has-text-success mb-3 is-size-6-mobile">${name || "Max"}</h2>
 
@@ -70,18 +70,13 @@ function mostrarMascotasEnDOM(datos) {
                 <span class="tag ${colorSexo} is-light ">${Sexo || "Desconocido"}</span>
                 <span class="tag is-success is-light">${raza || "Desconocida"}</span>
             </div>
-
-         
           <footer class="card-footer">
             <a href="#" id="botonParaEditar" onclick="editarMasc('${id}')" class="button card-footer-item button is-small is-info">Editar</a>
             <a href="#" onclick="eliminarMascotas('${id}')" class="button card-footer-item button is-small is-danger">Eliminar</a>
           </footer>
-
-        
-        
   </div>
     `;
-    seccionCards.appendChild(userCard);
+    seccionCards.appendChild(usuarioCard);
   });
 }
 
