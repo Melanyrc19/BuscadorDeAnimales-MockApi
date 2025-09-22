@@ -215,8 +215,8 @@ function actualizarSelectRazas(datos) {
 function colorPorSexo(sexo) {
   if (!sexo) return "is-light";
   sexo = sexo.toLowerCase();
-  if (sexo === "male" || sexo === "macho") return "is-danger";   // verde
-  if (sexo === "female" || sexo === "hembra") return "is-info";   // azul
+  if (sexo === "male" || sexo === "macho") return "is-danger"; 
+  if (sexo === "female" || sexo === "hembra") return "is-info";   
   return "is-light"; 
 }
 
