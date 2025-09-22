@@ -93,7 +93,7 @@ Elementos: https://68c99a25ceef5a150f657abc.mockapi.io/Mascotas
 <img width="1002" height="822" alt="image" src="https://github.com/user-attachments/assets/0921a340-b94a-4dca-aacc-567f3e311919" />
 
 
-##🤝 Contribuir
+## 🤝 Contribuir
 
 
 Este proyecto es parte de un trabajo práctico académico. Si deseas contribuir:
