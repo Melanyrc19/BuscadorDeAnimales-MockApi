@@ -44,7 +44,7 @@ Etiquetas visuales distintivas para categorías
 🚀 Cómo ejecutar el proyecto
 Clona este repositorio:
 
-git clone git@github.com:Melanyrc19/BuscadorDeAnimales-MockApi.git
+git clone https://github.com/Melanyrc19/BuscadorDeAnimales-MockApi.git
 cd BuscadorDeAnimales-MockApi
 Abre el archivo index.html en tu navegador o utiliza una extensión como Live Server en VS Code.
 
