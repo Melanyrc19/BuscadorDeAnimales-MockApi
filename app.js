@@ -55,18 +55,19 @@ function mostrarMascotasEnDOM(datos) {
 
     const userCard = document.createElement("div");
     userCard.className = "column is-4-table is-6-mobile mb-3";
+    userCard.style.minWidth = "250px"; 
     const colorSexo = colorPorSexo(Sexo);
     userCard.innerHTML = `<div class="card has-background-light has-shadow">
          <div class="card-content has-text-centered">
-          <h2 class="title has-text-success mb-3">${name || "Max"}</h2>
+          <h2 class="title has-text-success mb-3 is-size-6-mobile">${name || "Max"}</h2>
 
-            <div class="card-image is-flex is-justify-content-center mb-4">
-                <figure class="image is-128x128  ">
-                   <img src="${avatar || "https://via.placeholder.com/150"}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwQaIC41yiY6MMU9KawcQ3r_mz7hSbqnWZA&s' " style="width:128px; height:128px; object-fit:cover; border-radius:50%;">
+            <div class="card-image is-flex is-justify-content-center pb-6">
+                <figure class="image is-128x128 is-96x96-mobile">
+                   <img class="is-rounded" src="${avatar || "https://via.placeholder.com/150"}" onerror="this.src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxwQaIC41yiY6MMU9KawcQ3r_mz7hSbqnWZA&s' >
                 </figure>
             </div>
-            <div class="tags is-centered mb-3">
-                <span class="tag ${colorSexo} is-light">${Sexo || "Desconocido"}</span>
+            <div class="tags is-centered mb-3 ">
+                <span class="tag ${colorSexo} is-light ">${Sexo || "Desconocido"}</span>
                 <span class="tag is-success is-light">${raza || "Desconocida"}</span>
             </div>
 
